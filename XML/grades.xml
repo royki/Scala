@@ -1,0 +1,38 @@
+<grades>
+	<student name="Mark Lewis">
+		<quiz value = "97"/>
+		<quiz value = "78"/>
+		<test value = "100"><comment>GOOD</comment></test>
+	</student>
+	<student name="John Doe">
+		<quiz value = "65"/>
+		<quiz value = "92"/>
+		<test value = "100"><comment>OK</comment></test>
+	</student>
+	<!--This is a comment -->
+	<student name="Jane Doe">
+		<quiz value =  "99"><comment>Thinks that 3&gt;4.</comment></quiz>
+		<quiz value =  "86"/>
+		<test value = "100"><comment>Very GOOD</comment></test>
+	</student>
+</grades>
+
+<!--
+<grades>
+	<student name="Mark Lewis">
+		<quiz>97</quiz>
+		<quiz>78</quiz>
+		<test>100<comment>GOOD</comment></test>
+	</student>
+	<student name="John Doe">
+		<quiz>65</quiz>
+		<quiz>92</quiz>
+		<test>100<comment>OK</comment></test>
+	</student>
+	<student name="Jane Doe">
+		<quiz>99</quiz>
+		<quiz>86</quiz>
+		<test>100<comment>Very GOOD</comment></test>
+	</student>
+</grades>
+-->
