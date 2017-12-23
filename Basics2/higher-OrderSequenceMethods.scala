@@ -15,6 +15,7 @@ arr.map(i => i*2)
 arr.map(_*2)
 
 // filter - taes boolen function
+// there is filterNot also
 arr.filter( _ < 5)
 arr.filter(_ %2==0)
 
@@ -28,7 +29,7 @@ arr.exists(_<5)
 arr.forall(_<10)
 
 // find
-arr.find(_%4==0)
+arr.find(_%4==0) // return type is Some()
 
 // partition - returns 2 Arrays - one with less than 5 elements and 2nd one with not less than 5 elements
 arr.partition(_<5)

@@ -2,7 +2,7 @@ package utility
 
 import adt._
 
-object RPNCalc extends Any {
+object RPNCalc extends App {
 	// 2+3*5 => 2 3 + 5 *
 
 	def apply(args: Seq[String]): Double = {
@@ -22,7 +22,7 @@ object RPNCalc extends Any {
 	}
 }
 
-object RPNCalc extends Any {
+object RPNCalc extends App {
 	
 	def apply(args:Seq[String]): Double = {
 		val stack = new ArrayStack[Double]()
