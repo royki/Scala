@@ -3,6 +3,11 @@ import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
 
 object Deadlock extends App {
+
+	/*var cnt = 0
+	Future{for(i <- 1 to 100000) cnt += 1}.foreach{_ => println("f1 is done")}
+	Future{for(i <- 1 to 100000) cnt += 1}.foreach{_ => println("f2 is done")}*/
+
 	var b1 = mutable.Buffer[String]()
 	var b2 = mutable.Buffer[String]()
 

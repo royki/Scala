@@ -22,11 +22,11 @@ object FutureInScala extends App {
 		for(i <- 1 to 10) yield ParallelFib(i)
 		// throw new RuntimeException("Bad.")
 	}	
-	f1.foreach(println)
+	// f1.foreach(println)
 	f1.onComplete {
-	 	case Success(n) => println(n)
+	 	case Success(n) => println("Success "+ n)
 	 	case Failure(ex) => println("Somthing wrong. " +ex)
 	}
 	Thread.sleep(1000)
-	// println(f1.isCompleted)
+	println(f1.isCompleted)
 }

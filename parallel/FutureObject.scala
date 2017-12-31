@@ -8,15 +8,15 @@ import scala.concurrent.duration._
 
 object FutureObject extends App {
 	val page1 = Future {
-		"Google " +io.Source.fromURL("http://www.google.com").take(100).mkString
+		"Google Page " +io.Source.fromURL("http://www.google.com").take(100).mkString
 	}
-
+	println
 	val page2 = Future {
-		"Scala " +io.Source.fromURL("https://www.scala-lang.org").take(100).mkString
+		"Scala Page " +io.Source.fromURL("https://www.scala-lang.org").take(100).mkString
 	}
-
+	println
 	val page3 = Future {
-		"SO " +io.Source.fromURL("https://stackoverflow.com").take(100).mkString
+		"SO Page " +io.Source.fromURL("https://stackoverflow.com").take(100).mkString
 	}
 
 	val pages = List(page1, page2, page3)

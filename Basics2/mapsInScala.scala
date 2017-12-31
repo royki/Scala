@@ -14,7 +14,7 @@ val n = (1 to 100).map(i => i.toString -> i) // Gives sequence of tuple
 (1 to 100).map(i => i.toString -> i).toMap
 // Maps generally doesn't preserve order
 val m = n.take(5)
-// Patter match
+// Pattern match
 for((k,v) <- m) println(k+ " "+ v)
 
 //Map on Map

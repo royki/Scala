@@ -1,4 +1,4 @@
-object EnumerationsInScala extends Enumerations {
+object EnumerationsInScala extends Enumeration {
 	// val red = 0
 	// val green = 1
 	// val yellow = 2
