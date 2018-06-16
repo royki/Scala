@@ -1,6 +1,12 @@
-def Fibonacci(n:Int): Int = {
+def Fib1(n:Int): Int = {
 	if(n < 2) 1 
-	else Fibonacci(n-1)+ Fibonacci(n-2)
+	else Fib1(n-1)+ Fib1(n-2)
+}
+
+
+def Fib2(n: Int): Int = n match {
+	case 0|1 => 1
+	case _ => Fib2(n-1) + Fib2(n-2)
 }
 
 def Fibonacci_Loop(n: Int): Int = {
@@ -17,14 +23,19 @@ def Fibonacci_Loop(n: Int): Int = {
 	}
 }
 
-def Fibonacci_Recur(n: Int): Int = {
-	def helper(n: Int, a: Int, b: Int): Int = 
-		if(n <= 0) a+b
-		else helper(n-1,b,a+b)
-		if(n < 2) 1 else helper(n-2,1,1)
+
+def Fibonacci_tailRecur2(n: Int): BigInt = {
+
+	def fibHelper(x: Int, prev: BigInt=0, next: BigInt = 1): BigInt = x match {
+		case 0 => prev
+		case 1 => next
+		case _ => fibHelper(x - 1, next, (next + prev))
+	}
+	
+	fibHelper(n)
 }
 
 
-println(Fibonacci(5))
-println(Fibonacci_Loop(5))
 println(Fibonacci_Recur(5))
+println(Fibonacci_Loop(5))
+println(Fibonacci_tailRecur1(5))

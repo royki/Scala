@@ -11,4 +11,14 @@ object fizzBuzzRecursive extends App {
 		}
 	}
 	println(fizzBuzz(1))
+
+	def sumFizz(n: Int): Unit = {
+		if(i <= 1000) {
+			(i%3, i%5) match {
+				case (0,0) => println(Array(i/3,i/5).sum)
+				case _ => println("None")
+			}
+			sumFizz(i+1)
+		}
+	}
 }

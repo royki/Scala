@@ -36,4 +36,26 @@ object recursion extends App {
 	}
 	println(countFromTo(1, 10))
 	println("===============")
+
+	import annotation.tailrec
+	
+	def Factorial_tailRecur(n: Int): Int = {	
+		def helper(n: Int, acc: Int): Int = n match {
+			case 0 => acc
+			case 1 => acc
+			case _ => helper(n-1, n*acc)
+		}
+		helper(n,1)
+	}
+	println(Factorial_tailRecur(5))
+
+	def Factorial_tailRecur1(n: Int): Int = {
+		@tailrec
+		def loop(n: Int, acc: Int): Int = {
+			if(n == 0) acc
+			else loop(n-1, acc * n)
+		}
+		loop(n,1)
+	}
+	println(Factorial_tailRecur1(5))
 }

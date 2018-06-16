@@ -10,3 +10,4 @@ print("Number of Grades :: ->")
 val numGrade = readInt
 val sumGrade = readAndsum(numGrade)
 println("The Avg is : " + sumGrade.toDouble/numGrade)
+https://www.facebook.com/help/contact/567360146613371
