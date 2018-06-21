@@ -130,3 +130,5 @@ def productOfList(xs: List[Int]): Int = (1 :: xs).reduceLeft((x, y) => x * y)
 
 def sumOfList(xs: List[Int]): Int = xs.foldLeft(0){(x, y) => x + y}
 def productOfList(xs: List[Int]): Int = xs.foldLeft(1){(x, y) => x * y}
+
+def lengthFun[T](xs: List[T]): Int = (xs foldRight 0)( ??? )

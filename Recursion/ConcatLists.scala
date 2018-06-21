@@ -9,4 +9,10 @@ object ConcatLists extends App {
 	val l2 = List('A','E','I','O','U')
 
 	println(concatLists(l1,l2))
+
+	def concatLists[T](l1: List[T], l2: List[T]): List[T] = {		
+		l1.foldRight(l2)(_ :: _)
+	}
+
+	def lengthFun[T](xs: List[T]): Int = (xs foldRight 0)((x, y) => 1 + y)
 }
