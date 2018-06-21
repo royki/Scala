@@ -1,4 +1,5 @@
 class Rational(x: Int, y: Int) {
+  require(y > 0, "denominator must be positive")
   private def gcd(a: Int, b: Int): Int =
     if (b == 0) a else gcd(b, a % b)
 

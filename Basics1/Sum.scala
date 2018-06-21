@@ -1,5 +1,6 @@
 def readAndSum(n: Int): Int = {
-	if(n< 1) 0 else {
+	if(n< 1) 0 
+	else {
 		println("Enter a grade :: =>")
 		val grade = readInt
 		grade + readAndSum(n-1)
@@ -7,7 +8,8 @@ def readAndSum(n: Int): Int = {
 }
 
 def readAndProduct(n: Int): Int = {
-	if(n < 1) 1 else {
+	if(n < 1) 1 
+	else {
 		println("Enter a grade ::+>")
 		val grade = readInt
 		grade * readAndProduct(n-1)
@@ -17,7 +19,8 @@ def readAndProduct(n: Int): Int = {
 //readAndCombine(3,1,(x,y) => x*y) // 1 base case
 //readAndCombine(3,0, _+_ ) // short syntax
 def readAndCombine(n: Int, base: Int, combineFunc: (Int, Int) => Int): Int = {
-	if(n < 1) base else {
+	if(n < 1) base 
+	else {
 		println("Enter a grade ::+>")
 		val grade = readInt
 		combineFunc(grade, readAndCombine(n-1, base, combineFunc))

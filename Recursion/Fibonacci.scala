@@ -23,9 +23,9 @@ def Fibonacci_Loop(n: Int): Int = {
 	}
 }
 
-
+import annotation.tailrec
 def Fibonacci_tailRecur2(n: Int): BigInt = {
-
+	@tailrec
 	def fibHelper(x: Int, prev: BigInt=0, next: BigInt = 1): BigInt = x match {
 		case 0 => prev
 		case 1 => next
