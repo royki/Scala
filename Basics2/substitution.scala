@@ -1,4 +1,0 @@
-object sustitution extends App {
-
-		
-}

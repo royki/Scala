@@ -1,1 +1,1 @@
-#Scala Practice
+#SBT Scala Project

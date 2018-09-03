@@ -1,3 +1,0 @@
-Learning Scala is fun.
-Let's have fun with scala.
-Hahahah
