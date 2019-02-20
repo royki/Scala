@@ -1,1 +1,1 @@
-# SBT Scala Project
+# SBT Scala DevInsideYou

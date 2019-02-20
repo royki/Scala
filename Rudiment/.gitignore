@@ -1,8 +1,9 @@
-.settings/
-bin/
+.settings/*
+bin/*
 *.class
 *.log
 .classpath
 .project
-target/
+project/*
+target/*
 .cache-main
