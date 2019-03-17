@@ -116,7 +116,7 @@ class SetSuite extends FunSuite with Matchers {
   }
 
   test("intersection on empty Set should yield an empty Set") {
-    // Set.empty.intersect(Set.empty) shouldBe true // this is not right
+    // Set.empty.intersect(Set.empty) shouldBe Set.empty // this is failing as there is no equality function
     Set.empty.intersect(Set.empty)(randomString) shouldBe false
   }
 
