@@ -1,6 +1,6 @@
 version  := "0.0.1"
 organization := "com"
-scalaVersion := "2.12.6"
+scalaVersion := "2.12.8"
 triggeredMessage := Watched.clearWhenTriggered
 
 libraryDependencies ++= Seq(
@@ -14,6 +14,6 @@ testOptions in Test ++=  Seq(
 	Tests.Argument(TestFrameworks.ScalaTest, "-h", "target/test-reports")
 )
 
-addCommandAlias("testc", ";clean;coverage;test;coverageReport")
+// addCommandAlias("testc", ";clean;coverage;test;coverageReport")
 
-coverageExcludedPackages := "Main"
+// coverageExcludedPackages := "Main"

@@ -1,13 +1,13 @@
 object Recursion extends App {
 
-	/*def main(args: Array[String]): Unit = {
+  /*def main(args: Array[String]): Unit = {
 		println("Hello World")
 	}*/
 
-	println("Hello World")
-	println("-" * 30)
+  println("Hello World")
+  println("-" * 30)
 
-	/*def fibonacci(n: Int):Int = {
+  /*def fibonacci(n: Int):Int = {
 		var iterations = 0
 
 		def loop(x: Int): Int = {
@@ -25,7 +25,7 @@ object Recursion extends App {
 		result
 	}*/
 
-	/*def fibonacci(n: Int):Int = {
+  /*def fibonacci(n: Int):Int = {
 		var iterations = 0
 
 		@scala.annotation.tailrec
@@ -55,8 +55,7 @@ object Recursion extends App {
 	println("8 => "+ fibonacci(8))
 	println("50 => "+ fibonacci(50))*/
 
-
-	/*def factorial(n: Int): Int = {
+  /*def factorial(n: Int): Int = {
 		var iterations = 0
 
 		def loop(x: Int): Int = {
@@ -70,32 +69,32 @@ object Recursion extends App {
 		loop(n)
 	}*/
 
-	def factorial(n: Int): Int = {
+  def factorial(n: Int): Int = {
 
-		var iterations = 0
-		@scala.annotation.tailrec
-		def loop(x: Int, accu: Int): Int = {
-			iterations += 1
-			if(x == 0)
-				accu
-			else
-				loop(x - 1, accu * x)
-		}
-		val result = loop(n, 1)
-		println("Iterations: "+ iterations)
-		result
-	}
+    var iterations = 0
+    @scala.annotation.tailrec
+    def loop(x: Int, accu: Int): Int = {
+      iterations += 1
+      if (x == 0)
+        accu
+      else
+        loop(x - 1, accu * x)
+    }
+    val result = loop(n, 1)
+    println("Iterations: " + iterations)
+    result
+  }
 
-	println("0 => "+ factorial(0))
-	println("1 => "+ factorial(1))
-	println("2 => "+ factorial(2))
-	println("3 => "+ factorial(3))
-	println("4 => "+ factorial(4))
-	println("5 => "+ factorial(5))
-	println("6 => "+ factorial(6))
-	println("7 => "+ factorial(7))
-	println("8 => "+ factorial(8))
-	// println("50 => "+ factorial(50))
+  println("0 => " + factorial(0))
+  println("1 => " + factorial(1))
+  println("2 => " + factorial(2))
+  println("3 => " + factorial(3))
+  println("4 => " + factorial(4))
+  println("5 => " + factorial(5))
+  println("6 => " + factorial(6))
+  println("7 => " + factorial(7))
+  println("8 => " + factorial(8))
+  // println("50 => "+ factorial(50))
 
-	println("-" * 30)
+  println("-" * 30)
 }
