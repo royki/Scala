@@ -86,15 +86,14 @@ object Composition extends App {
 			println(randomBoolean)
 		}*/
 
-
-	// Function Literal
+    // Function Literal
     val x: Int => Int = _ + 5
     val y: Int => Int = _ / 2
 
     println(x(y(20))) // (20 /2 ) + 5 = 15
     println(y(x(15))) // (15 + 5 ) / 2 = 10
 
-	// Composition
+    // Composition
     def rightThenLeft(left: Int => Int, right: Int => Int): Int => Int =
       input => left(right(input))
 
