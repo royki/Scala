@@ -4,5 +4,6 @@ bin/*
 *.log
 .classpath
 .project
+project/*
 target/*
 .cache-main
