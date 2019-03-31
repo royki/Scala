@@ -14,6 +14,10 @@ testOptions in Test ++=  Seq(
 	Tests.Argument(TestFrameworks.ScalaTest, "-h", "target/test-reports")
 )
 
+scalacOptions ++= Seq ("-deprecation")
+
+reColors := Resolver.noColors
+
 // addCommandAlias("testc", ";clean;coverage;test;coverageReport")
 
 // coverageExcludedPackages := "Main"
