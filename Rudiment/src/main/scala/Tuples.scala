@@ -41,7 +41,9 @@ object Tuples extends App {
   println(s"Tuple3 element 2\t${tuple3a._2}")
   println(s"Tuple3 element 3\t${tuple3a._3}")
 */
+
   type StringToInt = Tuple2[String, Int] // Can be written as (String, Int)
+
   def addTuples(f: StringToInt, s: StringToInt): StringToInt = {
     (f._1 + s._1, f._2 + s._2)
   }
@@ -51,9 +53,10 @@ object Tuples extends App {
     (st, st.length)
   }
 
-  val result = addTuples(
+  val result: StringToInt = addTuples(
     f = stringLength("Dev"),
     s = stringLength("InsideYou")
+  // s = "world" -> 5 // s = ("world", 5)
   )
 
   println(result)
