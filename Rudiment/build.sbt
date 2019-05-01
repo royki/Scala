@@ -16,7 +16,7 @@ testOptions in Test ++=  Seq(
 
 scalacOptions ++= Seq ("-deprecation")
 
-reColors := Resolver.noColors
+// reColors := Resolver.noColors
 
 // addCommandAlias("testc", ";clean;coverage;test;coverageReport")
 

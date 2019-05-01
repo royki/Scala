@@ -66,11 +66,23 @@ object ObjectOrientation extends App {
 
   class EnergyMeter(wattsPerSec: Int, turnDeviceOn: () => Unit, turnDeviceOff: () => Unit) {
 
+    // pass device TV or Bulb directly to EnergyMeter *
+    /*def this(device: Bulb) =
+      this(
+        wattsPerSec   = device.wattsPerSec,
+        turnDeviceOn  = () => device.turnOn(),
+        turnDeviceOff = () => device.turnOff()
+      )*/
+
     // private instance variable
     private[this] var turnedOnAtMillis: Long = 0
     private[this] var _wattsConsumendInTotal: Double = 0
-    def wattsConsumendInTotal: Double = _wattsConsumendInTotal // getter or accessor
-    private[this] def wattsConsumendInTotal_=(newValue: Double): Unit = { // setter or mutator
+
+    // getter or accessor
+    def wattsConsumendInTotal: Double = _wattsConsumendInTotal
+
+    // setter or mutator
+    private[this] def wattsConsumendInTotal_=(newValue: Double): Unit = {
       _wattsConsumendInTotal = newValue
     }
 
@@ -86,29 +98,113 @@ object ObjectOrientation extends App {
       val durationInMillis = System.currentTimeMillis - turnedOnAtMillis
       val durationInSecs = durationInMillis.toDouble / 1000
 
+      /* Use private val with `_` by convention*/
       // _wattsConsumendInTotal += wattsPerSec * durationInSecs
+
+      /* `def wattsConsumendInTotal` - to get rid of `_` when used as private val */
       // wattsConsumendInTotal(wattsConsumendInTotal + (wattsPerSec * durationInSecs))
+
+      /* To use similar as val use method name with `_` as `def wattsConsumendInTotal_`
+      - now we can use method as val. Scala syntactic sugar */
       wattsConsumendInTotal += wattsPerSec * durationInSecs
 
       // println(_wattsConsumendInTotal)
     }
   }
 
-  val wattsPerSecTV: Int = 500
-
-  def turnOnTV(): Unit = {
-    println("TV ON")
+  // ** Make the `DeviceListed` object as companion object for `EnergyMeter`, change the method name `staticDispatch` to `apply`
+  object EnergyMeter /* DeviceListed */ {
+    // * Now if we have, another device as `TV` or `Music`, how to pass then; use `Any`
+    def apply /* staticDispatch */ (device: Any): EnergyMeter = device match {
+      // using pattern matching
+      case lightBulb: Bulb =>
+        // if (device.isInstanceOf[Bulb]) {
+        val lightBulb: Bulb = device.asInstanceOf[Bulb]
+        new EnergyMeter(
+          wattsPerSec   = lightBulb.wattsPerSec,
+          turnDeviceOn  = () => lightBulb.turnOn(),
+          turnDeviceOff = () => lightBulb.turnOff()
+        )
+      // }
+      case tv: TV =>
+        // else if (device.isInstanceOf[TV]) {
+        val tv: TV = device.asInstanceOf[TV]
+        new EnergyMeter(
+          wattsPerSec   = tv.wattsPerSec,
+          turnDeviceOn  = () => tv.turnOn(),
+          turnDeviceOff = () => tv.turnOff()
+        )
+      // }
+      case _ => sys.error("No Device Found")
+      // else sys.error("No Device Found")
+    }
   }
 
-  def turnOffTV(): Unit = {
-    println("TV OFF")
+  // how to use if we've multiple devices
+  /*
+  val wattsPerSecBulb: Int = 100
+
+  def turnOnBulb(): Unit = {
+    println("Bulb ON")
+  }
+
+  def turnOffBulb(): Unit = {
+    println("Bulb OFF")
   }
 
   val energyMeter = new EnergyMeter(
-    wattsPerSec   = wattsPerSecTV,
-    turnDeviceOn  = () => turnOnTV,
-    turnDeviceOff = () => turnOffTV
+    wattsPerSec   = wattsPerSecBulb,
+    turnDeviceOn  = () => turnOnBulb,
+    turnDeviceOff = () => turnOffBulb
   )
+  */
+
+  // wrapp the following functions and property with a `class`
+
+  // TV
+  class TV {
+    val wattsPerSec: Int = 500
+
+    def turnOn(): Unit = {
+      println("TV ON")
+    }
+
+    def turnOff(): Unit = {
+      println("TV OFF")
+    }
+  }
+  // Bulb
+  class Bulb {
+    val wattsPerSec: Int = 100
+
+    def turnOn(): Unit = {
+      println("Bulb ON")
+    }
+
+    def turnOff(): Unit = {
+      println("Bulb OFF")
+    }
+  }
+
+  val lightBulb: Bulb = new Bulb
+  val tv: TV = new TV
+
+  /*
+ val energyMeter = new EnergyMeter(
+    wattsPerSec   = lightBulb.wattsPerSec,
+    turnDeviceOn  = () => lightBulb.turnOn,
+    turnDeviceOff = () => lightBulb.turnOff
+  )
+*/
+
+  // pass device TV or Bulb directly to EnergyMeter. to do this - change in `EnergyMeter` class; added  `def this` method
+  // val energyMeter = new EnergyMeter(tv)
+
+  // To have multiple devices, we created object `staticDispatch`, to listed diveces as type `Any` and make instance of each device
+  // val energyMeter = DeviceListed.staticDispatch(lightBulb)
+
+  // ** As we make `DeviceListed` as companion object of `EnergyMeter` class, so we can use it directly the companion object
+  val energyMeter = EnergyMeter.apply(lightBulb)
 
   energyMeter.startMeasuring()
   Thread.sleep(1000)
@@ -116,6 +212,11 @@ object ObjectOrientation extends App {
   println(energyMeter.wattsConsumendInTotal)
 
   println
+
+  energyMeter.startMeasuring()
+  Thread.sleep(1000)
+  energyMeter.stopMeasuring()
+  println(energyMeter.wattsConsumendInTotal)
 
   println("-" * 80)
 }
