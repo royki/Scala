@@ -1,0 +1,10 @@
+- `private[this]` -> only current instance has the access
+- `private` -> only instance of current class has the access
+- `protected[this]` -> only current instance and the sub class instance
+- `protected` -> only instance of the current class and any instance of any sub class
+- `final` -> on a `class` means that it can't be extended
+- `final` -> on a `trait` is not allowed
+- `final` -> on any member means can't be overwritten
+- `abstract` -> on a `class` can't be instantiated
+- `abstract` -> on any member is not allowed to have `=` or body `{ }`;must be overriden
+- `sealed` -> same as `final`; use in `trait` genarally; can be used in `class`; can be extended if it is in same file(compilation unit).
