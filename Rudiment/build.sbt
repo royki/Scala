@@ -14,7 +14,7 @@ testOptions in Test ++=  Seq(
 	Tests.Argument(TestFrameworks.ScalaTest, "-h", "target/test-reports")
 )
 
-scalacOptions ++= Seq ("-deprecation")
+scalacOptions ++= Seq ("-deprecation", /*"-Xlint"*/) // build flag `-Xlint`
 
 // reColors := Resolver.noColors
 
