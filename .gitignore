@@ -1,6 +1,6 @@
 *.log
 *.class
-.vscode
+.vscode/
 .project
 .classpath
 .settings
@@ -8,3 +8,6 @@
 jsonvalidation/
 target/
 .fuse*
+.metals/
+.bloop/
+.idea/
