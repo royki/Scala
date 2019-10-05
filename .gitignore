@@ -6,3 +6,6 @@ bin/
 .project
 target/
 .cache-main
+.metals/
+.bloop/
+.idea/
