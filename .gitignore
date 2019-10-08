@@ -9,7 +9,8 @@ target/
 *.db
 *.bin
 *.semanticdb
-.bloop/
-.metals/
 .vscode/
 project/
+.metals/
+.bloop/
+.idea/

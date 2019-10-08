@@ -92,7 +92,7 @@ object Literals extends App {
     println(syntacticsuger_of_k(4, 4))
 
   }
-  {
+//   {
     def now: String = {
       val formatter = java.time.format.DateTimeFormatter.ofPattern("HH:mm:ss")
       java.time.LocalDateTime.now.format(formatter)
@@ -111,6 +111,6 @@ object Literals extends App {
 			print(inOneLine(now))
 			i += 1
 		}*/
-  }
+//   }
   println("-" * 50)
 }
