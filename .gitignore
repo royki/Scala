@@ -6,3 +6,10 @@ bin/
 .project
 target/
 .cache-main
+*.db
+*.bin
+*.semanticdb
+.bloop/
+.metals/
+.vscode/
+project/
