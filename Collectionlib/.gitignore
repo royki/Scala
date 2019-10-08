@@ -1,8 +1,0 @@
-.settings/
-bin/
-*.class
-*.log
-.classpath
-.project
-target/
-.cache-main
