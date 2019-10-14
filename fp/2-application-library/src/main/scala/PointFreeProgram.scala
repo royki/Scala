@@ -58,21 +58,22 @@ object PointFreeProgram {
       )
     ) */
 
+  import  Description._
   lazy val createDescription: Array[String] => Description[Unit] =
-    ignoreArgs `;`
-      hyphens `;`
-      displayKleisli `;`
-      question `;`
-      displayKleisli `;`
-      prompt `;`
-      convertStringToInt `;`
-      ensureAmountIsPositive `;`
-      round `;`
-      createMessage `;`
-      displayKleisli `;`
-      hyphens `;`
-      displayKleisli `;;`
-      Description.brokenCreate
+    ignoreArgs andThen
+    hyphens `-->`
+    displayKleisli >=>
+    question `-->`
+    displayKleisli >=>
+    promptKleisli >=>
+    convertStringToInt `-->`
+    ensureAmountIsPositive `-->`
+    round `-->`
+    createMessage `-->`
+    displayKleisli >=>
+    hyphens `-->`
+    displayKleisli /* >=>
+    Description.brokenCreate */
 
   private lazy val ignoreArgs: Array[String] => Unit = _ => ()
 
@@ -91,11 +92,13 @@ object PointFreeProgram {
   /* private def display(input: Any): Unit = {
     println(input)
   } */
-  private lazy val display: Any => Unit = input => println(input)
-  private lazy val displayKleisli: Any => Description[Unit] = input =>
-    Description.create {
+  private lazy val display: Any => Unit = input => {
+    println(input)
+  }
+
+  private lazy val displayKleisli: Any => Description[Unit] = input => Description.create {
       println(input)
-    }
+  }
 
   // Side effect (Reading from Console)
   /* private def prompt(input: Any): String = {
@@ -103,6 +106,9 @@ object PointFreeProgram {
   } */
   // private lazy val prompt: Any => String = _ => scala.io.StdIn.readLine
   private lazy val prompt: Any => String = input => scala.io.StdIn.readLine
+
+  private lazy val promptKleisli: Any => Description[String] = input =>
+    Description.create(scala.io.StdIn.readLine)
 
   // Potential side effect (throwing - NumberFormatException)
   /* private def convertStringToInt(input: String): Int = {
