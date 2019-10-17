@@ -1,6 +1,6 @@
 version  := "0.0.1"
 organization := "com"
-scalaVersion := "2.12.8"
+scalaVersion := "2.13.1"
 triggeredMessage := Watched.clearWhenTriggered
 
 libraryDependencies ++= Seq(
