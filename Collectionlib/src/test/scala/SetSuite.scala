@@ -35,6 +35,12 @@ class SetSuite extends FunSuite with Matchers {
     set(second) shouldBe true
   }
 
+  test("remove on an empty Set should yield an empty Set") {
+    val element = randomString
+    val stillEmpty = Set.empty.remove(element)
+    stillEmpty(element) shouldBe false
+  }
+
   test("remove on a nonEmpty Set should yield a new Set without element") {
     val element = randomString
 
@@ -77,135 +83,141 @@ class SetSuite extends FunSuite with Matchers {
     setWithoutElement(second) shouldBe false
   }
 
-  test("union on empty Set should yield an empty Set") {
-    Set.empty.union(Set.empty)(randomString) shouldBe false
+  test("add/remove combo should ensure that all elements are distinct") {
+    val element = randomString
+    val set = Set.empty.add(element).add(element).remove(element)
+    set(element) shouldBe false
   }
 
-  test("union on non empty Set with an empty Set should yield the original Set untouched") {
-    // val nonEmptySet = Set.empty.add(randomString)
-    // Set.empty.union(nonEmptySet) shouldBe true
+  // test("union on empty Set should yield an empty Set") {
+  //   Set.empty.union(Set.empty)(randomString) shouldBe false
+  // }
 
-    val first = randomString
-    val second = randomString
+  // test("union on non empty Set with an empty Set should yield the original Set untouched") {
+  //   // val nonEmptySet = Set.empty.add(randomString)
+  //   // Set.empty.union(nonEmptySet) shouldBe true
 
-    first should not be second
+  //   val first = randomString
+  //   val second = randomString
 
-    val emptySet = Set.empty
-    val nonEmptySet1 = emptySet.add(first).add(second)
+  //   first should not be second
 
-    emptySet.union(nonEmptySet1)(first) shouldBe true
-    emptySet.union(nonEmptySet1)(second) shouldBe true
+  //   val emptySet = Set.empty
+  //   val nonEmptySet1 = emptySet.add(first).add(second)
 
-    nonEmptySet1.union(emptySet)(first) shouldBe true
-    nonEmptySet1.union(emptySet)(second) shouldBe true
-  }
+  //   emptySet.union(nonEmptySet1)(first) shouldBe true
+  //   emptySet.union(nonEmptySet1)(second) shouldBe true
 
-  test("union on two non empty Set with an empty Set should yield their union") {
-    val a = randomString
-    val b = randomString
-    val c = randomString
-    val d = randomString
+  //   nonEmptySet1.union(emptySet)(first) shouldBe true
+  //   nonEmptySet1.union(emptySet)(second) shouldBe true
+  // }
 
-    val left = Set.empty.add(a).add(b)
-    val right = Set.empty.add(c).add(d)
+  // test("union on two non empty Set with an empty Set should yield their union") {
+  //   val a = randomString
+  //   val b = randomString
+  //   val c = randomString
+  //   val d = randomString
 
-    left.union(right)(a) shouldBe true
-    left.union(right)(b) shouldBe true
-    left.union(right)(c) shouldBe true
-    left.union(right)(d) shouldBe true
-  }
+  //   val left = Set.empty.add(a).add(b)
+  //   val right = Set.empty.add(c).add(d)
 
-  test("intersection on empty Set should yield an empty Set") {
-    // Set.empty.intersect(Set.empty) shouldBe Set.empty // this is failing as there is no equality function
-    Set.empty.intersect(Set.empty)(randomString) shouldBe false
-  }
+  //   left.union(right)(a) shouldBe true
+  //   left.union(right)(b) shouldBe true
+  //   left.union(right)(c) shouldBe true
+  //   left.union(right)(d) shouldBe true
+  // }
 
-  test("intersection on non empty Set with an empty Set should yield the original Set untouched") {
-    val first = randomString
-    val second = randomString
+  // test("intersection on empty Set should yield an empty Set") {
+  //   // Set.empty.intersect(Set.empty) shouldBe Set.empty // this is failing as there is no equality function
+  //   Set.empty.intersect(Set.empty)(randomString) shouldBe false
+  // }
 
-    first should not be second
+  // test("intersection on non empty Set with an empty Set should yield the original Set untouched") {
+  //   val first = randomString
+  //   val second = randomString
 
-    val emptySet = Set.empty
-    val NonEmptySet = emptySet.add(first).add(second)
+  //   first should not be second
 
-    emptySet.intersect(NonEmptySet)(first) shouldBe false
-    emptySet.intersect(NonEmptySet)(second) shouldBe false
+  //   val emptySet = Set.empty
+  //   val NonEmptySet = emptySet.add(first).add(second)
 
-    NonEmptySet.intersect(emptySet)(first) shouldBe false
-    NonEmptySet.intersect(emptySet)(second) shouldBe false
-  }
+  //   emptySet.intersect(NonEmptySet)(first) shouldBe false
+  //   emptySet.intersect(NonEmptySet)(second) shouldBe false
 
-  test("intersection on two non empty Set with an empty Set should yield their common Set") {
-    val a = randomString
-    val b = randomString
-    val c = randomString
-    val d = randomString
-    val e = randomString
+  //   NonEmptySet.intersect(emptySet)(first) shouldBe false
+  //   NonEmptySet.intersect(emptySet)(second) shouldBe false
+  // }
 
-    val left = Set.empty.add(a).add(b).add(c)
-    val right = Set.empty.add(c).add(d).add(e)
+  // test("intersection on two non empty Set with an empty Set should yield their common Set") {
+  //   val a = randomString
+  //   val b = randomString
+  //   val c = randomString
+  //   val d = randomString
+  //   val e = randomString
 
-    val intersectionLeft = left.intersect(right)
+  //   val left = Set.empty.add(a).add(b).add(c)
+  //   val right = Set.empty.add(c).add(d).add(e)
 
-    intersectionLeft(a) shouldBe false
-    intersectionLeft(b) shouldBe false
-    intersectionLeft(c) shouldBe true
-    intersectionLeft(d) shouldBe false
-    intersectionLeft(e) shouldBe false
+  //   val intersectionLeft = left.intersect(right)
 
-    val intersectionRight = right.intersect(left)
+  //   intersectionLeft(a) shouldBe false
+  //   intersectionLeft(b) shouldBe false
+  //   intersectionLeft(c) shouldBe true
+  //   intersectionLeft(d) shouldBe false
+  //   intersectionLeft(e) shouldBe false
 
-    intersectionRight(a) shouldBe false
-    intersectionRight(b) shouldBe false
-    intersectionRight(c) shouldBe true
-    intersectionRight(d) shouldBe false
-    intersectionRight(e) shouldBe false
-  }
+  //   val intersectionRight = right.intersect(left)
 
-  test("difference on empty Set should yield an empty Set") {
-    Set.empty.diff(Set.empty)(randomString) shouldBe false
-  }
+  //   intersectionRight(a) shouldBe false
+  //   intersectionRight(b) shouldBe false
+  //   intersectionRight(c) shouldBe true
+  //   intersectionRight(d) shouldBe false
+  //   intersectionRight(e) shouldBe false
+  // }
 
-  test("difference on a non empty Set with an empty Set should yield an empty Set") {
-    val first = randomString
-    val second = randomString
+  // test("difference on empty Set should yield an empty Set") {
+  //   Set.empty.diff(Set.empty)(randomString) shouldBe false
+  // }
 
-    first should not be second
+  // test("difference on a non empty Set with an empty Set should yield an empty Set") {
+  //   val first = randomString
+  //   val second = randomString
 
-    val emptySet = Set.empty
-    val nonEmptySet = emptySet.add(first).add(second)
+  //   first should not be second
 
-    emptySet.diff(nonEmptySet)(first) shouldBe false
-    emptySet.diff(nonEmptySet)(second) shouldBe false
+  //   val emptySet = Set.empty
+  //   val nonEmptySet = emptySet.add(first).add(second)
 
-    nonEmptySet.diff(emptySet)(first) shouldBe true
-    nonEmptySet.diff(emptySet)(second) shouldBe true
-  }
+  //   emptySet.diff(nonEmptySet)(first) shouldBe false
+  //   emptySet.diff(nonEmptySet)(second) shouldBe false
 
-  test("difference on two non empty Sets should yield their difference") {
-    val a = randomString
-    val b = randomString
-    val c = randomString
-    val d = randomString
+  //   nonEmptySet.diff(emptySet)(first) shouldBe true
+  //   nonEmptySet.diff(emptySet)(second) shouldBe true
+  // }
 
-    val left = Set.empty.add(a).add(b).add(c)
-    val right = Set.empty.add(b).add(c).add(d)
+  // test("difference on two non empty Sets should yield their difference") {
+  //   val a = randomString
+  //   val b = randomString
+  //   val c = randomString
+  //   val d = randomString
 
-    val leftDifference = left.diff(right)
+  //   val left = Set.empty.add(a).add(b).add(c)
+  //   val right = Set.empty.add(b).add(c).add(d)
 
-    leftDifference(a) shouldBe true
-    leftDifference(b) shouldBe false
-    leftDifference(c) shouldBe false
-    leftDifference(d) shouldBe false
+  //   val leftDifference = left.diff(right)
 
-    val rightDifference = right.diff(left)
+  //   leftDifference(a) shouldBe true
+  //   leftDifference(b) shouldBe false
+  //   leftDifference(c) shouldBe false
+  //   leftDifference(d) shouldBe false
 
-    rightDifference(a) shouldBe false
-    rightDifference(b) shouldBe false
-    rightDifference(c) shouldBe false
-    rightDifference(d) shouldBe true
-  }
+  //   val rightDifference = right.diff(left)
+
+  //   rightDifference(a) shouldBe false
+  //   rightDifference(b) shouldBe false
+  //   rightDifference(c) shouldBe false
+  //   rightDifference(d) shouldBe true
+  // }
 
   test("isSubsetOf on an empty Set should yield true") {
     pending
