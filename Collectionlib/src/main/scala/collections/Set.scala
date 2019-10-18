@@ -12,8 +12,23 @@ trait Set extends (String => Boolean) {
   def remove(input: String): Set
   def union(that: Set): Set
 
-  final def isSubsetOf(that: Set): Boolean =
-    ???
+  def intersect(that: Set): Set
+  def diff(that: Set): Set
+
+  def isSubsetOf(that: Set): Boolean 
+  final def isSupersetOf(that: Set): Boolean = that.isSubsetOf(this)
+  
+  final override def equals(other: Any): Boolean = other match {
+    case that: Set => this.isSubsetOf(that) & that.isSubsetOf(this)
+    case _ => false
+  }
+  def size: Int
+  def isEmpty: Boolean /* = this eq Set.empty */
+  final def nonEmpty: Boolean = !isEmpty
+
+  def isSingleton: Boolean
+
+  def sample: Option[String]
 }
 // Companion object of the trait
 object Set {
@@ -41,8 +56,46 @@ object Set {
       if (input == element) otherElements
       else NonEmpty(element, otherElements.remove(input))
 
-    // Uninon in NonEmpty Set
-    def union(that: Set): Set = ???
+    // Union in NonEmpty Set
+    override final def union(that: Set): Set = {
+      val newSet = that.add(element)
+      otherElements.union(newSet)
+    }
+    
+    // Intersection in NonEmpty Set
+    override final def intersect(that: Set): Set = {
+      if(that(element))
+      otherElements.intersect(that).add(element)
+      else
+      otherElements.intersect(that)
+    }
+    
+    // Difference in NonEmpty Set
+    override final def diff(that: Set): Set = {
+      if(that(element))
+        otherElements.diff(that)
+      else
+        otherElements.diff(that).add(element)
+      }
+
+    // isSubsetOf NonEmpty Set
+    override final def isSubsetOf(that: Set): Boolean = 
+      that(element) && otherElements.isSubsetOf(that)
+
+    // hashCode
+    override final def hashCode: Int = element.hashCode + otherElements.hashCode  
+
+    // Size of NonEmpty Set
+    override final def size: Int = 1 + otherElements.size
+
+    // isEmpty on NonEmpty Set
+    override final def isEmpty: Boolean = false
+    
+    // isSingleton on NonEmpty Set
+    override final def isSingleton: Boolean = otherElements.isEmpty
+
+    // Sample of NonEmpty Set
+    override final def sample: Option[String] = Some(element)
   }
 
   // ----------------Implementation of Empty Object -------------------------//
@@ -60,8 +113,29 @@ object Set {
     // Remove in Empty Set
     def remove(input: String): Set = this
 
-    // Uninon in Empty Set
-    def union(that: Set): Set = ???
+    // Union in Empty Set
+    override final def union(that: Set): Set = that
+
+    // Intersection in NonEmpty Set
+    override final def intersect(that: Set): Set = this
+
+    // Difference in NonEmpty Set
+    override final def diff(that: Set): Set = this
+
+    // isSubsetOf NonEmpty Set
+    override final def isSubsetOf(that: Set): Boolean = true
+
+    // Size of Empty Set
+    override final def size: Int = 0
+
+    // isEmpty on Empty Set
+    override final def isEmpty: Boolean = true
+
+    // isSingleton on Empty Set
+    override final def isSingleton: Boolean = false
+
+    // Sample of Empty Set
+    override final def sample: Option[String] = None
 
   }
 
