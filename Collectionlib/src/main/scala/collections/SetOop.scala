@@ -118,13 +118,13 @@ object SetOop {
     // Union in Empty Set
     override final def union(that: SetOop): SetOop = that
 
-    // Intersection in NonEmpty Set
+    // Intersection in Empty Set
     override final def intersect(that: SetOop): SetOop = this
 
-    // Difference in NonEmpty Set
+    // Difference in Empty Set
     override final def diff(that: SetOop): SetOop = this
 
-    // isSubsetOf NonEmpty Set
+    // isSubsetOf Empty Set
     override final def isSubsetOf(that: SetOop): Boolean = true
 
     // Size of Empty Set
