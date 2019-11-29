@@ -66,13 +66,45 @@ object ObjectOrientation extends App {
 
   class EnergyMeter(wattsPerSec: Int, turnDeviceOn: () => Unit, turnDeviceOff: () => Unit) {
 
-    // pass device TV or Bulb directly to EnergyMeter *
-    /*def this(device: Bulb) =
+    // Make a auxilury constructor for multipe device to pass device TV or Bulb directly to EnergyMeter *
+    /*
+    def this(device: Bulb) =
       this(
         wattsPerSec   = device.wattsPerSec,
         turnDeviceOn  = () => device.turnOn(),
         turnDeviceOff = () => device.turnOff()
-      )*/
+    )
+    */
+
+    /*
+    ** If we do this, we have a problem as device can be Bulb or TV at one time. To avoid this, make the device type as `Any`,
+    But type `Any` doesn't have `turnOn` or `turnOff` methods. To have those, we can use of `asInstanceOf`, in the following way.
+
+    As the auxillary constructor calls the primary constructor or some other constructors, We need to take this method out and put in suitable component.
+    To do this, we need to make a companion object of EneryMeter and put this method there named as `apply`. This is actually `staticDispatch` in OOP programmatic term.
+    */
+    /*
+    def this(device: Any) = {
+     if(device.isInstanceOf[Bulb]) {
+      val lightBulb: Bulb = device.asInstanceOf[Bulb]
+      this(
+        wattsPerSec   = device.wattsPerSec,
+        turnDeviceOn  = () => device.turnOn(),
+        turnDeviceOff = () => device.turnOff()
+      )
+     }
+     else if(device.isInstanceOf[TV]) {
+      val tv: TV = device.asInstanceOf[TV]
+      this(
+        wattsPerSec   = device.wattsPerSec,
+        turnDeviceOn  = () => device.turnOn(),
+        turnDeviceOff = () => device.turnOff()
+      )
+     } else {
+       sys.error("Not a Device")
+     }
+    }
+   */
 
     // private instance variable
     private[this] var turnedOnAtMillis: Long = 0
@@ -220,3 +252,6 @@ object ObjectOrientation extends App {
 
   println("-" * 80)
 }
+
+// ... To be Continued
+// We ve lost the Dependency Inversion as well as type safety.
