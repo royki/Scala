@@ -1,1 +1,6 @@
-#Scala Practice
+#### Scala
+
+- Coursera
+- DevInsideYou
+- Mark Lewis
+- edx
