@@ -1,0 +1,17 @@
+.settings/
+bin/
+*.class
+*.log
+.classpath
+.project/
+target/
+.cache-main
+*.db
+*.bin
+*.semanticdb
+.bloop/
+.metals/
+.idea/
+project/
+.vscode/
+null/
