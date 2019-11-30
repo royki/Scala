@@ -3,9 +3,15 @@ bin/
 *.class
 *.log
 .classpath
-.project
+.project/
 target/
 .cache-main
-.metals/
+*.db
+*.bin
+*.semanticdb
 .bloop/
+.metals/
 .idea/
+project/
+.vscode/
+null/
