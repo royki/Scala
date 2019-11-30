@@ -6,7 +6,7 @@ sealed trait SetforEach extends (String => Boolean) {
   /* 
    `foreach` take cares both empty & non empty set. 
    So it will moved to the `trait` and `apply` implementation will be removed from empty & non empty set as well 
-    */
+  */
     override final def apply(input: String): Boolean ={
       var result = false
         foreach { current => 
@@ -91,7 +91,9 @@ sealed trait SetforEach extends (String => Boolean) {
     }
     result
   }
-  def isEmpty: Boolean /* = this eq Set.empty */
+
+  final def isEmpty: Boolean =
+    this eq SetforEach.empty
   final def nonEmpty: Boolean = !isEmpty
 
   // def isSingleton: Boolean
@@ -235,7 +237,7 @@ object SetforEach {
     /* override final def size: Int = 1 + otherElements.size */
 
     // isEmpty on NonEmpty Set
-    override final def isEmpty: Boolean = false
+    /* override final def isEmpty: Boolean = false */
 
     // isSingleton on NonEmpty Set
     /* override final def isSingleton: Boolean = otherElements.isEmpty */
@@ -290,7 +292,7 @@ object SetforEach {
     /* override final def size: Int = 0 */
 
     // isEmpty on Empty Set
-    override final def isEmpty: Boolean = true
+    /* override final def isEmpty: Boolean = true */
 
     // isSingleton on Empty Set
     /* override final def isSingleton: Boolean = false */

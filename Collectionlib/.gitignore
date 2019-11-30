@@ -13,3 +13,5 @@ target/
 .metals/
 .idea/
 project/
+.vscode/
+null/
