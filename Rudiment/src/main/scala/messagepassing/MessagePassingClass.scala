@@ -1,11 +1,12 @@
-object MessagePassingStyle extends App {
+object MessagePassingClass extends App {
   println("-" * 50)
 
   // `type` alias
   type accountSymbol = Symbol => Any
 
   // BankAccount returns sometime Int => Unit or sometime () => Int, To handle this situation, use `Symbole` as `Symnot => Any`
-  def BankAccount(initialBalance: Int): accountSymbol /* Symbol => Any */ /*(Int => Unit /*Int*/ )*/ = {
+  // def BankAccount(initialBalance: Int): accountSymbol /* Symbol => Any */ /*(Int => Unit /*Int*/ )*/ = {
+  class BankAccount(initialBalance: Int) {
     var balance: Int = initialBalance
 
     val withdraw: Int => Unit /*Int*/ = amount => {
@@ -43,13 +44,13 @@ object MessagePassingStyle extends App {
       else
         sys.error(s"Unknow operation: $operation")
 
-    dispatch
+    // dispatch
   }
 
-  val account1 = BankAccount(initialBalance = 100)
-  val withdraw1 = account1('withdraw).asInstanceOf[Int => Unit]
-  val deposit1 = account1('deposit).asInstanceOf[Int => Unit]
-  val getBalance1 = account1('getBalance).asInstanceOf[() => Int]
+  val account1 = new BankAccount(initialBalance = 100)
+  val withdraw1 = account1.dispatch('deposit).asInstanceOf[Int => Unit]
+  val deposit1 = account1.dispatch('deposit).asInstanceOf[Int => Unit]
+  val getBalance1 = account1.dispatch('getBalance).asInstanceOf[() => Int]
 
   println("Initial Balance in the account1", account1)
   println
@@ -67,9 +68,9 @@ object MessagePassingStyle extends App {
   // println(s"Balance after deposit ${getBalance1()}")
   // println
 
-  def makeTransfer(from: accountSymbol, amount: Int, to: accountSymbol): Unit = {
-    def getBalance(account: accountSymbol): Int = {
-      account('getBalance).asInstanceOf[() => Int]()
+  def makeTransfer(from: BankAccount, amount: Int, to: BankAccount): Unit = {
+    def getBalance(account: BankAccount): Int = {
+      account.dispatch('getBalance).asInstanceOf[() => Int]()
     }
 
     def showBothAccounts(): Unit = {
@@ -80,8 +81,8 @@ object MessagePassingStyle extends App {
     println("Before Transfer")
     showBothAccounts()
 
-    from('withdraw).asInstanceOf[Int => Unit](amount)
-    to('deposit).asInstanceOf[Int => Unit](amount)
+    from.dispatch('withdraw).asInstanceOf[Int => Unit](amount)
+    to.dispatch('deposit).asInstanceOf[Int => Unit](amount)
     println
 
     println("After Transfer")
@@ -90,8 +91,8 @@ object MessagePassingStyle extends App {
 
   }
 
-  val bankAccount1 /*: accountSymbol*/ = BankAccount(initialBalance = 50)
-  val bankAccount2 /*: accountSymbol*/ = BankAccount(initialBalance = 10)
+  val bankAccount1 /*: accountSymbol*/ = new BankAccount(initialBalance = 50)
+  val bankAccount2 /*: accountSymbol*/ = new BankAccount(initialBalance = 10)
 
   makeTransfer(bankAccount1, 1, bankAccount2)
 

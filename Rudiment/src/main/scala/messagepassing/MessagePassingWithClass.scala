@@ -2,7 +2,7 @@ object MessagePassingWithClass extends App {
   println("-" * 50)
 
   // Companion object; it can access the private val from the Companion class
-  // Companion object doesn't have access the `private[this]` val of Companion class
+  // But Companion object can't access the `private[this]` val of Companion class
   object BankAccount {
     def f(b: BankAccount): Unit = {
       // println(b._balance)
@@ -120,6 +120,35 @@ object MessagePassingWithClass extends App {
   val bankAccount2 /*: BankAccount*/ = new BankAccount(initialBalance = 10)
 
   MultipleBankTrasfer.makeTransfer(bankAccount1, 1, bankAccount2)
+
+  // Here we use anonymous class
+  /* 
+  val MultipleBankTrasfer1 = new AnyRef {
+    def makeTransfer(from: BankAccount, amount: Int, to: BankAccount): Unit = {
+      
+      def showBothAccounts(): Unit = {
+      
+        println(s"from: ${from.getBalance()}")
+        println(s"to: ${to.getBalance()}")
+      }
+
+      println("Before Transfer")
+      showBothAccounts()
+
+      from.withdraw(amount)
+      to.withdraw(amount)
+      println
+
+      println("After Transfer")
+      showBothAccounts()
+      println(s"Amount Transfered: ${amount}")
+    }
+  }
+  val bankAccount1 /*: BankAccount*/ = new BankAccount(initialBalance = 50)
+  val bankAccount2 /*: BankAccount*/ = new BankAccount(initialBalance = 10)
+
+  MultipleBankTrasfer1.makeTransfer(bankAccount1, 1, bankAccount2)
+*/
 
   println("-" * 50)
 }
