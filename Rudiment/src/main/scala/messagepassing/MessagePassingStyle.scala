@@ -34,11 +34,11 @@ object MessagePassingStyle extends App {
     // `deposit` & `withdraw` functions return Unit. But `getBalance` returns Int. To solve this, we introduce the type `Any` in return type of `bankAccount`
 
     val dispatch: accountSymbol /*(Int => Unit /*Int*/ )*/ = operation =>
-      if (operation == 'withdraw)
+      if (operation == Symbol("withdraw"))
         withdraw
-      else if (operation == 'deposit)
+      else if (operation == Symbol("deposit"))
         deposit
-      else if (operation == 'getBalance)
+      else if (operation == Symbol("getBalance"))
         getBalance
       else
         sys.error(s"Unknow operation: $operation")
@@ -47,9 +47,9 @@ object MessagePassingStyle extends App {
   }
 
   val account1 = BankAccount(initialBalance = 100)
-  val withdraw1 = account1('withdraw).asInstanceOf[Int => Unit]
-  val deposit1 = account1('deposit).asInstanceOf[Int => Unit]
-  val getBalance1 = account1('getBalance).asInstanceOf[() => Int]
+  val withdraw1 = account1(Symbol("withdraw")).asInstanceOf[Int => Unit]
+  val deposit1 = account1(Symbol("deposit")).asInstanceOf[Int => Unit]
+  val getBalance1 = account1(Symbol("getBalance")).asInstanceOf[() => Int]
 
   println("Initial Balance in the account1", account1)
   println
@@ -69,7 +69,7 @@ object MessagePassingStyle extends App {
 
   def makeTransfer(from: accountSymbol, amount: Int, to: accountSymbol): Unit = {
     def getBalance(account: accountSymbol): Int = {
-      account('getBalance).asInstanceOf[() => Int]()
+      account(Symbol("getBalance")).asInstanceOf[() => Int]()
     }
 
     def showBothAccounts(): Unit = {
@@ -80,8 +80,8 @@ object MessagePassingStyle extends App {
     println("Before Transfer")
     showBothAccounts()
 
-    from('withdraw).asInstanceOf[Int => Unit](amount)
-    to('deposit).asInstanceOf[Int => Unit](amount)
+    from(Symbol("withdraw")).asInstanceOf[Int => Unit](amount)
+    to(Symbol("deposit")).asInstanceOf[Int => Unit](amount)
     println
 
     println("After Transfer")

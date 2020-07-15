@@ -35,11 +35,11 @@ object MessagePassingClass extends App {
     // `deposit` & `withdraw` functions return Unit. But `getBalance` returns Int. To solve this, we introduce the type `Any` in return type of `bankAccount`
 
     val dispatch: accountSymbol /*(Int => Unit /*Int*/ )*/ = operation =>
-      if (operation == 'withdraw)
+      if (operation == Symbol("withdraw"))
         withdraw
-      else if (operation == 'deposit)
+      else if (operation == Symbol("deposit"))
         deposit
-      else if (operation == 'getBalance)
+      else if (operation == Symbol("getBalance"))
         getBalance
       else
         sys.error(s"Unknow operation: $operation")
@@ -48,9 +48,9 @@ object MessagePassingClass extends App {
   }
 
   val account1 = new BankAccount(initialBalance = 100)
-  val withdraw1 = account1.dispatch('deposit).asInstanceOf[Int => Unit]
-  val deposit1 = account1.dispatch('deposit).asInstanceOf[Int => Unit]
-  val getBalance1 = account1.dispatch('getBalance).asInstanceOf[() => Int]
+  val withdraw1 = account1.dispatch(Symbol("deposit")).asInstanceOf[Int => Unit]
+  val deposit1 = account1.dispatch(Symbol("deposit")).asInstanceOf[Int => Unit]
+  val getBalance1 = account1.dispatch( Symbol("getBalance")).asInstanceOf[() => Int]
 
   println("Initial Balance in the account1", account1)
   println
@@ -70,7 +70,7 @@ object MessagePassingClass extends App {
 
   def makeTransfer(from: BankAccount, amount: Int, to: BankAccount): Unit = {
     def getBalance(account: BankAccount): Int = {
-      account.dispatch('getBalance).asInstanceOf[() => Int]()
+      account.dispatch(Symbol("getBalance")).asInstanceOf[() => Int]()
     }
 
     def showBothAccounts(): Unit = {
@@ -81,8 +81,8 @@ object MessagePassingClass extends App {
     println("Before Transfer")
     showBothAccounts()
 
-    from.dispatch('withdraw).asInstanceOf[Int => Unit](amount)
-    to.dispatch('deposit).asInstanceOf[Int => Unit](amount)
+    from.dispatch(Symbol("withdraw")).asInstanceOf[Int => Unit](amount)
+    to.dispatch(Symbol("deposit")).asInstanceOf[Int => Unit](amount)
     println
 
     println("After Transfer")

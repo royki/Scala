@@ -31,7 +31,8 @@ object Literals extends App {
     val g: String = """Hello Scala"""
     println(g)
 
-    val h: Symbol = 'Coucou // println('Coucou)
+    // val h: Symbol = 'Coucou // println('Coucou)
+    val h = Symbol("Coucou")
     println(h)
 
     println("Line Feed (LF)")
